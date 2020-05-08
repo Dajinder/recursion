@@ -313,6 +313,95 @@ public class recursion {
     return count;
 }
 
+
+// nqueen optimized
+
+static boolean[] ROW;
+static boolean[] COL;
+static boolean[] DIAG;
+static boolean[] ADIAG;
+
+public static int Nqueen_05(int n, int m,  int idx, int tnq, String ans){ // qpsf: queen place so far.
+    if (tnq==0){
+        System.out.println(ans);
+        return 1;
+    }
+
+    int count = 0;
+
+    for (int r = idx; r < n*m; r++){
+        int x = r / m;
+        int y = r % m;
+        if(!ROW[x] && !COL[y] && !DIAG[x+y] && !ADIAG[x-y+m-1]){
+            ROW[x]=true; COL[y]=true; DIAG[x+y]=true; ADIAG[x-y+m-1] = true;
+            count += Nqueen_05(n,m,r+1,tnq-1, ans + "(" + x + ", " + y + ") ");
+            ROW[x]=false; COL[y]=false; DIAG[x+y]=false; ADIAG[x-y+m-1] = false;
+        }
+    }
+    return count;
+}
+
+// nqueen using bits
+
+
+static int row=0;
+static int col=0;
+static int diag=0;
+static int adiag=0;
+
+public static int Nqueen_06(int n,int m,int idx,int tnq, String ans) // qpsf: queen place so far.
+{
+    if (tnq==0)
+    {
+        System.out.println(ans);
+        return 1;
+    }
+
+    int count = 0;
+    for (int r = idx; r < n*m; r++){
+        int x = r / m;
+        int y = r % m;
+
+        if ((row & (1<<x))==0 && (col & (1<<y))==0 && (diag & (1<<(x+y)))==0 && (adiag & (1<<(x-y + m - 1)))==0)
+        {
+            row^=(1<<x);
+            col^=(1<<y);
+            diag^=(1<<(x+y));
+            adiag^=(1<<(x-y+m-1));
+
+            count += Nqueen_06(n,m,r+1,tnq-1, ans + "(" + x + ", " + y + ") ");
+            
+            row^=(1<<x);
+            col^=(1<<y);
+            diag^=(1<<(x+y));
+            adiag^=(1<<(x-y+m-1));
+        }
+    }
+    return count;
+}
+
+
+public static void Nqueen(){
+    // boolean[][] boxes=new boolean[4][4];
+    // int tnq = 4;
+    // String ans = " ";
+    
+    // System.out.println(Nqueen_02(boxes,0, tnq, ans));
+
+    // int n = 4;
+    // ROW = new boolean[n];
+    // COL = new boolean[n]; 
+    // DIAG = new boolean[n+n-1];
+    // ADIAG = new boolean[n+n-1];
+
+    int n = 4;
+    
+    
+    // System.out.println(Nqueen_05(n, n, 0,  n, " "));
+    System.out.println(Nqueen_06(n, n, 0,  n, " "));
+
+}
+
     public static boolean isValid_KT(boolean[][] board, int r, int c){
         // int[][] dir = {{0,-1},{-1,-1},{-1,0},{-1,1}};
         int[][] dirA={{0,-1},{-1,-1},{-1,0},{-1,1},{0,1},{1,1},{1,0},{1,-1}};
@@ -375,19 +464,12 @@ public class recursion {
     }
 
 
-    public static void Nqueen(){
-        boolean[][] boxes=new boolean[4][4];
-        int tnq = 4;
-        String ans = " ";
-        
-        System.out.println(Nqueen_02(boxes,0, tnq, ans));
-
-    }
+    
     
     public static void solve(){
         // coinChange();
-        // Nqueen();
-        knightTour();
+        Nqueen();
+        // knightTour();
 
     }
     
