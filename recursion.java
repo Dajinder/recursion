@@ -512,13 +512,69 @@ public static void Nqueen(){
         }
     }
 
+    // crypto==========================================================
+
+    public static String str1 = "send";
+    public static String str2 = "more";
+    public static String str3 = "money";
+    public static int isNumberUsed = 0;
+    public static int[] freq = new int[26];
+
+    public static int stringToNumber(String str){
+        int res = 0;
+        for (int i = 0; i < str.length(); i++)
+        {
+            int idx = i - 'a';
+            res = res * 10 + freq[idx];
+        }
+        return res;
+    }
+
+    public static int cryptosolver_(String str, int idx){
+
+        if(idx == str.length()){
+            int num1 = stringToNumber(str1);
+            int num2 = stringToNumber(str2);
+            int num3 = stringToNumber(str3);
+        }
+
+        int count = 0;
+        for(int num=0;num<9;num++){
+            int mask = 1<<num;
+            if((isNumberUsed & mask)==0){
+                isNumberUsed ^= mask;
+                cryptosolver_(str, idx+1);
+                isNumberUsed ^= mask;
+            }
+        }
+        return count;
+    }
+    
+    public static void crypto(){
+        String str = str1 + str2 + str3;
+        int[] freq = new int[26];
+        // Arrays.fill(freq, 0);
+        for(int i=0;i<str.length();i++){
+            freq[ str[i] -'a' ]++;
+        }
+        str = " ";
+        for(int i=0;i<26;i++){
+            if(freq[i]>0){
+                str+=(char)(i+'a');
+            }
+        }
+        System.out.println(str);
+    }
+
+
 
     
     public static void solve(){
         // coinChange();
         // Nqueen();
         // knightTour();
-        wordBreak();
+        // wordBreak();
+        crypto();
 
     }
     
