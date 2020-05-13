@@ -146,28 +146,28 @@ public class recursion {
         String ans = "";
         int res = 0;
         
-        // ans = coinchangeCombinations_INF(arr, 0, tar);
-        // ans = coinchangeCombinations(arr, 0, tar);
-        // res = coinchangePermutaion(arr, tar);
-        // System.out.println(coinchangePermutaion_INF(arr, tar, " "));
-        // System.out.println(coinChangeCombination_subseq(arr, 0, tar, ans));
+        ans = coinchangeCombinations_INF(arr, 0, tar);
+        ans = coinchangeCombinations(arr, 0, tar);
+        res = coinchangePermutaion(arr, tar);
+        System.out.println(coinchangePermutaion_INF(arr, tar, " "));
+        System.out.println(coinChangeCombination_subseq(arr, 0, tar, ans));
  
  
  
  
-        // System.out.println(coinChangeCombination_subseq(arr,0,tar," "));
-        // System.out.println(coinChangeCombination_INF_subseq(arr, 0, tar," "));
-        // System.out.println(coinChangePermutation_INF_subseq(arr, 0, tar," "));
-        // System.out.println(coinChangePermutation_subseq(arr, 0, tar," "));
+        System.out.println(coinChangeCombination_subseq(arr,0,tar," "));
+        System.out.println(coinChangeCombination_INF_subseq(arr, 0, tar," "));
+        System.out.println(coinChangePermutation_INF_subseq(arr, 0, tar," "));
+        System.out.println(coinChangePermutation_subseq(arr, 0, tar," "));
 
-        // int[] coins = {1,1,1,1,1};
-        // boolean[] vis = {false,false,false,false,false};
-        // System.out.println(queenCombination(vis, 0, 0, 3, " "));
-        // System.out.println(queenPermutation(vis, 0, 0, 3, ans));
+        int[] coins = {1,1,1,1,1};
+        boolean[] vis = {false,false,false,false,false};
+        System.out.println(queenCombination(vis, 0, 0, 3, " "));
+        System.out.println(queenPermutation(vis, 0, 0, 3, ans));
 
 
-        // boolean[][] boxes=new boolean[4][4];
-        // int tnq = 4;
+        boolean[][] boxes=new boolean[4][4];
+        int tnq = 4;
 
     }
 
@@ -463,13 +463,6 @@ public static void Nqueen(){
         System.out.println(knightTour_01(board, 0, 0, 0)); 
     }
 
-
-    // // sudoku 
-
-    // public static boolean sudokusolve_(char[][] board)
-
-
-
     //wordbreak
 
     public static String[] words = {"mobile","samsung","sam","sung",  
@@ -566,6 +559,55 @@ public static void Nqueen(){
         System.out.println(str);
     }
 
+    // set problem======================================================
+
+    public static int equiset(int[] arr, int idx, int set1, int set2, String set1S, String set2S){
+
+        if(idx == arr.length){
+            if(set1 == set2){
+                System.out.println(set1S + " = " + set2S);
+                return 1;
+            }
+            return 0;
+        }
+        
+        int count = 0;
+
+        count+=equiset(arr, idx+1, set1+arr[idx], set2, set1S + " " + arr[idx] , set2S);
+        count+=equiset(arr, idx+1, set1, set2 + arr[idx], set1S , set2S + arr[idx] + " ");
+
+        return count;
+    }
+
+
+    public static int equiset2(int[] arr, int idx, int set1, int set2, String set1S, String set2S){
+
+        if(idx == arr.length){
+            if(set1 == set2 && set1!=0){
+                System.out.println(set1S + " = " + set2S);
+                return 1;
+            }
+            return 0;
+        }
+        
+        int count = 0;
+
+        count+=equiset2(arr, idx+1, set1+arr[idx], set2, set1S + " " + arr[idx] , set2S);
+        count+=equiset2(arr, idx+1, set1, set2 + arr[idx], set1S , set2S + arr[idx] + " ");
+
+        count+=equiset2(arr, idx+1, set1, set2, set1S, set2S);
+        return count;
+    }
+
+    public static void equiset(){
+        int [] arr = {10,20,30,40,50,60,70,80,90,100};
+
+        // System.out.println(equiset(arr, 0, 0, 0, "", ""));
+        // System.out.println(equiset(arr, 1, 10, 0, "", ""));
+        
+        System.out.println(equiset2(arr,0,0,0,"","")); 
+    }
+
 
 
     
@@ -574,7 +616,8 @@ public static void Nqueen(){
         // Nqueen();
         // knightTour();
         // wordBreak();
-        crypto();
+        // crypto();
+        equiset();  
 
     }
     
