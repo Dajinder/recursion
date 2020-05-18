@@ -141,35 +141,57 @@ public class recursion {
 
 
     public static void coinChange(){
-        int[] arr = {2,3,5,7};
-        int tar = 10;
-        String ans = "";
-        int res = 0;
+        // int[] arr = {2,3,5,7};
+        // int tar = 10;
+        // String ans = "";
+        // int res = 0;
         
-        ans = coinchangeCombinations_INF(arr, 0, tar);
-        ans = coinchangeCombinations(arr, 0, tar);
-        res = coinchangePermutaion(arr, tar);
-        System.out.println(coinchangePermutaion_INF(arr, tar, " "));
-        System.out.println(coinChangeCombination_subseq(arr, 0, tar, ans));
+        // ans = coinchangeCombinations_INF(arr, 0, tar);
+        // ans = coinchangeCombinations(arr, 0, tar);
+        // res = coinchangePermutaion(arr, tar);
+        // System.out.println(coinchangePermutaion_INF(arr, tar, " "));
+        // System.out.println(coinChangeCombination_subseq(arr, 0, tar, ans));
  
  
  
  
-        System.out.println(coinChangeCombination_subseq(arr,0,tar," "));
-        System.out.println(coinChangeCombination_INF_subseq(arr, 0, tar," "));
-        System.out.println(coinChangePermutation_INF_subseq(arr, 0, tar," "));
-        System.out.println(coinChangePermutation_subseq(arr, 0, tar," "));
+        // System.out.println(coinChangeCombination_subseq(arr,0,tar," "));
+        // System.out.println(coinChangeCombination_INF_subseq(arr, 0, tar," "));
+        // System.out.println(coinChangePermutation_INF_subseq(arr, 0, tar," "));
+        // System.out.println(coinChangePermutation_subseq(arr, 0, tar," "));
 
-        int[] coins = {1,1,1,1,1};
-        boolean[] vis = {false,false,false,false,false};
-        System.out.println(queenCombination(vis, 0, 0, 3, " "));
-        System.out.println(queenPermutation(vis, 0, 0, 3, ans));
+        // int[] coins = {1,1,1,1,1};
+        // boolean[] vis = {false,false,false,false,false};
+        // System.out.println(queenCombination(vis, 0, 0, 3, " "));
+        // System.out.println(queenPermutation(vis, 0, 0, 3, ans));
 
-
-        boolean[][] boxes=new boolean[4][4];
-        int tnq = 4;
+        boolean[] boxes = {false,false,false,false,false};
+        int tnq = 3;
+        System.out.println(queenCombins(boxes, 0, 0, tnq, " "));
 
     }
+
+
+    public static int queenCombins(boolean[] boxes, int bn, int qpsf, int tnq, String ans){
+        if(qpsf == tnq){
+            System.out.println(ans);
+            return 1;
+        }
+
+        int count = 0;
+        for(int i=bn;i<boxes.length;i++){
+            count+= queenCombins(boxes, i+1, qpsf+1, tnq, ans + " b"+i+"q"+qpsf);
+        }
+        return count;
+        
+    }        
+
+
+
+
+
+
+
 
 
 
@@ -210,6 +232,8 @@ public class recursion {
         return count;
     }
 
+
+
     public static int queensCombination2D(boolean[][] rooms, int room, int tnq, String ans){ // qpsf: queen place so far.
         if (tnq==0){
             System.out.println(ans);
@@ -224,6 +248,8 @@ public class recursion {
         }
         return count;
     }
+
+
 
     public static int queensPermutation2D(boolean[][] boxes,int tnq, String ans) // qpsf: queen place so far.
     {
@@ -543,21 +569,21 @@ public static void Nqueen(){
         return count;
     }
     
-    public static void crypto(){
-        String str = str1 + str2 + str3;
-        int[] freq = new int[26];
-        // Arrays.fill(freq, 0);
-        for(int i=0;i<str.length();i++){
-            freq[ str[i] -'a' ]++;
-        }
-        str = " ";
-        for(int i=0;i<26;i++){
-            if(freq[i]>0){
-                str+=(char)(i+'a');
-            }
-        }
-        System.out.println(str);
-    }
+    // public static void crypto(){
+    //     String str = str1 + str2 + str3;
+    //     int[] freq = new int[26];
+    //     // Arrays.fill(freq, 0);
+    //     for(int i=0;i<str.length();i++){
+    //         freq[ str[i] -'a' ]++;
+    //     }
+    //     str = " ";
+    //     for(int i=0;i<26;i++){
+    //         if(freq[i]>0){
+    //             str+=(char)(i+'a');
+    //         }
+    //     }
+    //     System.out.println(str);
+    // }
 
     // set problem======================================================
 
@@ -607,17 +633,56 @@ public static void Nqueen(){
         
         System.out.println(equiset2(arr,0,0,0,"","")); 
     }
+    // print numbers given in range in lexicographical order
+    public static void lexicographicalOrder(int st, int end){
+        if(st>end){
+            return;
+        }
+
+        System.out.println(st);
+
+        for(int i=0;i<10;i++){
+            if(st*10+i<end){
+                lexicographicalOrder(st*10+i, end);
+            }
+        }
+
+        if(st+1<10){
+            lexicographicalOrder(st+1, end);
+        }
+    }
+
+    // leetcode 1079
+    public static int numTilePossibilities(String str) {
+        
+        if(str.length()==0){
+            return 0;
+        }
+
+        int count = 0;
+
+        int vis = 0;
+        for(int i=0;i<str.length();i++){
+            int mask = 1<<(str.charAt(i)-'A');
+            if((vis & mask)==0){
+                vis^=mask;
+                String nstr = str.substring(0, i) + str.substring(i+1);
+                count+=numTilePossibilities(nstr)+1;
+            }
+        }
+        return count;
+    }
 
 
-
-    
     public static void solve(){
         // coinChange();
         // Nqueen();
         // knightTour();
         // wordBreak();
         // crypto();
-        equiset();  
+        // equiset();  
+        // lexicographicalOrder(1, 100);
+        System.out.println(numTilePossibilities("AAB")) ;
 
     }
     
