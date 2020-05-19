@@ -1,8 +1,64 @@
-// package recursion_revision;
+
 import java.util.Arrays;
 public class recursion {
     public static void main(String[] args){
         solve();
+    }
+
+    public static void solve(){
+        // System.out.println(fact(5));
+        // System.out.println(fib(8));
+        // System.out.println(pow(3, 4));
+        // System.out.println(powBetter(2, 5));
+        
+        // coinChange();
+        // Nqueen();
+        // knightTour();
+        // wordBreak();
+        // crypto();
+        // equiset();  
+        // lexicographicalOrder(1, 100);
+        // System.out.println(numTilePossibilities("AAB")) ;
+
+    }
+
+    public static int fact(int n ){
+
+        if(n<=1) return 1;
+
+        return n*(fact(n-1));
+        
+    }
+
+    public static int fib(int n){
+        
+        if(n<=1) return n;
+        
+        return fib(n-1)+fib(n-2);
+    }
+
+    public static int pow(int a, int b){
+
+        if(b==0) return 1;
+        if(a==0) return 0;
+
+        return a*pow(a,b-1);
+
+    }
+
+    public static int powBetter(int a, int b){
+
+        if(b==0) return 1;
+        if(a==0) return 0;
+
+        if(b%2==0){
+            int half = powBetter(a, b/2);
+            return half*half;
+        }
+        else{
+            int half = powBetter(a, b/2);
+            return a*(half*half);
+        }
     }
     
     public static int coinchangePermutaion_INF(int[] arr, int tar, String ans){
@@ -674,16 +730,6 @@ public static void Nqueen(){
     }
 
 
-    public static void solve(){
-        // coinChange();
-        // Nqueen();
-        // knightTour();
-        // wordBreak();
-        // crypto();
-        // equiset();  
-        // lexicographicalOrder(1, 100);
-        System.out.println(numTilePossibilities("AAB")) ;
-
-    }
+    
     
 }
